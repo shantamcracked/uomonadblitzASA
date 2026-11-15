@@ -166,10 +166,10 @@ function MoneyCard({
 
       {!joined && (
         <>
-          <p className="mt-3 flex items-center justify-between gap-2 text-sm text-amber-800">
-            <span className="min-w-0 truncate">{cleanTitle(flock.title)}</span>
+          <p className="mt-3 flex items-start justify-between gap-2 text-sm text-amber-800">
+            <span className="line-clamp-2 min-w-0 [overflow-wrap:anywhere]">{cleanTitle(flock.title)}</span>
             <span className="ml-auto whitespace-nowrap tabular-nums">{fmtUsd(flock.nextPrice)}</span>
-            <ArrowUpRight size={15} className="shrink-0" aria-hidden="true" />
+            <ArrowUpRight size={15} className="mt-0.5 shrink-0" aria-hidden="true" />
           </p>
           {flock.status === "open" && (
             <>
@@ -274,7 +274,7 @@ function FlockNav({ flock, now }: Pick<JoinScreenProps, "flock"> & { now: number
                 className="flex min-h-11 w-full items-center gap-3 rounded-lg border border-transparent px-3 py-2.5 text-left text-sm text-slate-700 hover:bg-white/70 aria-[current=page]:border-sky-200/60 aria-[current=page]:bg-sky-300/10 aria-[current=page]:text-slate-950"
               >
                 <Icon size={17} className="shrink-0 text-sky-800" aria-hidden="true" />
-                <span className="min-w-0 flex-1 truncate">{cleanTitle(f.title)}</span>
+                <span className="line-clamp-2 min-w-0 flex-1 [overflow-wrap:anywhere]">{cleanTitle(f.title)}</span>
               </a>
             </li>
           );
@@ -294,7 +294,7 @@ function PriceCurve({ flock }: Pick<JoinScreenProps, "flock">) {
   const data = flock.curve.map((p) => ({ ...p, reached: p.n <= flock.n ? p.price : null }));
   return (
     <div className="mt-2 h-40 min-w-0 rounded-xl bg-slate-50 py-1">
-      <ResponsiveContainer width="100%" height="100%" initialDimension={{ width: 320, height: 160 }}>
+      <ResponsiveContainer width="100%" height="100%" initialDimension={{ width: 240, height: 160 }}>
         <ComposedChart data={data} margin={{ top: 10, right: 12, left: 0, bottom: 0 }}>
           <defs>
             <linearGradient id={gradient} x1="0" y1="0" x2="0" y2="1">
@@ -365,8 +365,8 @@ function TripCard({ flock, me, error, now }: Pick<JoinScreenProps, "flock" | "me
     <article className={`overflow-hidden ${card}`}>
       <header className="flex flex-wrap items-start justify-between gap-3 border-b border-slate-200 p-5">
         <div className="min-w-0">
-          <h2 className="flex items-center gap-2 text-xl font-semibold">
-            <Icon size={20} className="shrink-0 text-sky-800" aria-hidden="true" />
+          <h2 className="flex items-start gap-2 text-xl font-semibold leading-snug">
+            <Icon size={20} className="mt-1 shrink-0 text-sky-800" aria-hidden="true" />
             <span className="min-w-0 [overflow-wrap:anywhere]">{cleanTitle(flock.title)}</span>
           </h2>
           <p className="mt-2 flex flex-wrap items-center gap-1.5 text-sm text-slate-600">
@@ -436,9 +436,11 @@ function TripCard({ flock, me, error, now }: Pick<JoinScreenProps, "flock" | "me
             </p>
           ) : (
             open && (
-              <p className="mt-2 flex flex-wrap items-center gap-1.5 text-sm text-slate-600">
-                <Clock3 size={14} aria-hidden="true" />
-                Cancels if fewer than {flock.minBuyers} people pay by the deadline. Refund plus {fmtUsd(flock.bonusPerBuyer)} bonus.
+              <p className="mt-2 flex items-start gap-1.5 text-sm text-slate-600">
+                <Clock3 size={14} className="mt-0.5 shrink-0" aria-hidden="true" />
+                <span>
+                  Cancels if fewer than {flock.minBuyers} people pay by the deadline. Refund plus {fmtUsd(flock.bonusPerBuyer)} bonus.
+                </span>
               </p>
             )
           )}
@@ -549,7 +551,7 @@ export default function JoinScreen({ flock, me, loggedIn, busy, error, lastRebat
   }, [lastRebateToast]);
 
   return (
-    <main className="min-h-[100dvh] w-full overflow-x-clip bg-[#f4f7fb] bg-[radial-gradient(ellipse_at_top_left,#e2efff,transparent_55%)] px-4 pt-[max(1.75rem,env(safe-area-inset-top))] pb-[calc(1.75rem+env(safe-area-inset-bottom))] text-slate-950 sm:px-8">
+    <main className="min-h-[100dvh] w-full overflow-x-clip tabular-nums bg-[#f4f7fb] bg-[radial-gradient(ellipse_at_top_left,#e2efff,transparent_55%)] px-4 pt-[max(1.75rem,env(safe-area-inset-top))] pb-[calc(1.75rem+env(safe-area-inset-bottom))] text-slate-950 sm:px-8">
       <div className="mx-auto max-w-md space-y-6 lg:max-w-6xl">
         <header className="flex items-center justify-between gap-3 border-b border-slate-200 pb-5">
           <div className="flex items-center gap-3">

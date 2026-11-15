@@ -77,6 +77,7 @@ export default function PreviewJoin() {
   const [who, setWho] = useState<Who>("joined");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState(false);
+  const [longTitle, setLongTitle] = useState(false);
   const [status, setStatus] = useState<FlockStatus>("open");
   const [open, setOpen] = useState(true);
   const [note, setNote] = useState<string | null>(null);
@@ -129,7 +130,7 @@ export default function PreviewJoin() {
                 Preview
               </span>
               <span className="truncate text-sm text-slate-600">
-                {open ? "Pick what to see" : `${whoLabel} · ${statusLabel}${busy ? " · Busy" : ""}${error ? " · Error" : ""}`}
+                {open ? "Pick what to see" : `${whoLabel} · ${statusLabel}${busy ? " · Busy" : ""}${error ? " · Error" : ""}${longTitle ? " · Long title" : ""}`}
               </span>
             </span>
             <span className="flex shrink-0 items-center gap-1 text-xs font-semibold text-slate-600">
@@ -144,12 +145,15 @@ export default function PreviewJoin() {
               <Segmented label="Flock status" value={status} options={STATUS} onChange={setStatus} />
               <div>
                 <div className="mb-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-500">Extras</div>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-3 gap-2">
                   <Toggle on={busy} onClick={toggleBusy}>
                     Busy
                   </Toggle>
                   <Toggle on={error} onClick={() => setError((e) => !e)}>
                     Error
+                  </Toggle>
+                  <Toggle on={longTitle} onClick={() => setLongTitle((l) => !l)}>
+                    Long title
                   </Toggle>
                 </div>
               </div>
@@ -160,7 +164,7 @@ export default function PreviewJoin() {
 
       <div onClickCapture={stayOnPage}>
         <JoinScreen
-          flock={{ ...flock, status }}
+          flock={{ ...flock, status, title: longTitle ? "Thanksgiving break charter van from Eugene campus to Portland International Airport (PDX) with luggage" : flock.title }}
           me={me}
           loggedIn={who !== "loggedOut"}
           busy={busy}

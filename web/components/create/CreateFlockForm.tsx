@@ -154,7 +154,7 @@ function PricePreview({ v, valid }: { v: CreateFlockValues; valid: boolean }) {
             <p className="text-sm text-slate-600">Per person at minimum</p>
           </div>
           <div className="mt-2 h-40 min-w-0 rounded-xl bg-slate-50 py-1">
-            <ResponsiveContainer width="100%" height="100%" initialDimension={{ width: 320, height: 160 }}>
+            <ResponsiveContainer width="100%" height="100%" initialDimension={{ width: 240, height: 160 }}>
               <ComposedChart data={data} margin={{ top: 10, right: 12, left: 0, bottom: 0 }}>
                 <defs>
                   <linearGradient id={gradient} x1="0" y1="0" x2="0" y2="1">
@@ -253,7 +253,7 @@ export default function CreateFlockForm({ loggedIn, busy, error, onLogin, onSubm
   };
 
   return (
-    <main className="min-h-[100dvh] w-full overflow-x-clip bg-[#f4f7fb] bg-[radial-gradient(ellipse_at_top_left,#e2efff,transparent_55%)] px-4 pt-[max(1.75rem,env(safe-area-inset-top))] pb-[calc(1.75rem+env(safe-area-inset-bottom))] text-slate-950 sm:px-8">
+    <main className="min-h-[100dvh] w-full overflow-x-clip tabular-nums bg-[#f4f7fb] bg-[radial-gradient(ellipse_at_top_left,#e2efff,transparent_55%)] px-4 pt-[max(1.75rem,env(safe-area-inset-top))] pb-[calc(1.75rem+env(safe-area-inset-bottom))] text-slate-950 sm:px-8">
       <div className="mx-auto max-w-md space-y-6 lg:max-w-6xl">
         <header className="flex items-center gap-3 border-b border-slate-200 pb-5">
           <span className="rounded-lg bg-sky-300/10 p-2 text-sky-800">
