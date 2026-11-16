@@ -13,12 +13,12 @@ export const FlockUSDAbi = FlockUSDAbiJson as Abi;
 const PRIVATE_RPC = process.env.MONAD_RPC_URL_SERVER;
 const RPC_URLS = [
   PRIVATE_RPC && PRIVATE_RPC.replace(/\/$/, "") !== RPC_URL.replace(/\/$/, "") ? PRIVATE_RPC : undefined,
-  "https://monad-testnet.drpc.org", // fastest in testing (~110ms)
-  "https://10143.rpc.thirdweb.com",
   "https://rpc.ankr.com/monad_testnet",
+  "https://10143.rpc.thirdweb.com",
   RPC_URL,
+  "https://monad-testnet.drpc.org", // last: hangs on writes from Vercel
 ].filter((u, i, a): u is string => !!u && a.indexOf(u) === i);
-const rpc = () => fallback(RPC_URLS.map((u) => http(u, { batch: true, retryCount: 2, retryDelay: 150 })));
+const rpc = () => fallback(RPC_URLS.map((u) => http(u, { batch: true, retryCount: 1, retryDelay: 150, timeout: 4_000 })));
 // Poll receipts every 250ms (viem's default is 4s, which made every relayed tx feel slow on ~400ms Monad blocks)
 export const publicClient = createPublicClient({ chain: monad, transport: rpc(), pollingInterval: 250 });
 
